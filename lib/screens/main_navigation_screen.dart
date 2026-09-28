@@ -31,14 +31,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       HomeScreen(onNavigateToTab: _onTabSelected),
       AlertsScreen(),
       const ReportScreen(),
-      const EmergencyScreen(),
+      EmergencyScreen(),
     ];
 
     return Scaffold(
-      body: IndexedStack(
-        index: _currentIndex,
-        children: screens,
-      ),
+      body: IndexedStack(index: _currentIndex, children: screens),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: Colors.white,
@@ -69,7 +66,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                   icon: Icons.notifications_active_rounded,
                   label: 'Live Alerts',
                   isSelected: _currentIndex == 1,
-                  badgeCount: controller.redAlertCount > 0 ? controller.redAlertCount : null,
+                  badgeCount: controller.redAlertCount > 0
+                      ? controller.redAlertCount
+                      : null,
                   onTap: () => _onTabSelected(1),
                 ),
                 _NavBarItem(
@@ -125,7 +124,9 @@ class _NavBarItem extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? selectedColor.withValues(alpha: 0.08) : Colors.transparent,
+          color: isSelected
+              ? selectedColor.withValues(alpha: 0.08)
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),
         child: Column(
@@ -139,14 +140,19 @@ class _NavBarItem extends StatelessWidget {
                   size: 24,
                   color: isSelected
                       ? selectedColor
-                      : (isEmergency ? const Color(0xFFEF4444).withValues(alpha: 0.7) : const Color(0xFF94A3B8)),
+                      : (isEmergency
+                            ? const Color(0xFFEF4444).withValues(alpha: 0.7)
+                            : const Color(0xFF94A3B8)),
                 ),
                 if (badgeCount != null && badgeCount! > 0)
                   Positioned(
                     top: -4,
                     right: -6,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5,
+                        vertical: 2,
+                      ),
                       decoration: const BoxDecoration(
                         color: Color(0xFFEF4444),
                         shape: BoxShape.circle,
@@ -171,7 +177,9 @@ class _NavBarItem extends StatelessWidget {
                 fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
                 color: isSelected
                     ? selectedColor
-                    : (isEmergency ? const Color(0xFFEF4444).withValues(alpha: 0.8) : const Color(0xFF64748B)),
+                    : (isEmergency
+                          ? const Color(0xFFEF4444).withValues(alpha: 0.8)
+                          : const Color(0xFF64748B)),
               ),
             ),
           ],

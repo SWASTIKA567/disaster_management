@@ -84,7 +84,10 @@ class HomeScreen extends StatelessWidget {
                 // Quick SOS Action Banner
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 18,
+                    vertical: 14,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFF0F172A),
                     borderRadius: BorderRadius.circular(20),
@@ -144,7 +147,10 @@ class HomeScreen extends StatelessWidget {
                           backgroundColor: const Color(0xFFEF4444),
                           foregroundColor: Colors.white,
                           elevation: 0,
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 10,
+                          ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -218,7 +224,9 @@ class HomeScreen extends StatelessWidget {
                   _FeaturedCrisisCard(
                     disaster: controller.featuredAlert!,
                     onTap: () {
-                      Get.to(() => DisasterDetailScreen(disaster: controller.featuredAlert!));
+                      Get.to(
+                        () => DetailScreen(disaster: controller.featuredAlert!),
+                      );
                     },
                   ),
                   const SizedBox(height: 24),
@@ -248,7 +256,13 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
                       ),
-                      child: const Text('View All', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                      child: const Text(
+                        'View All',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -328,7 +342,13 @@ class HomeScreen extends StatelessWidget {
                         padding: EdgeInsets.zero,
                         minimumSize: Size.zero,
                       ),
-                      child: const Text('Explore Feed', style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                      child: const Text(
+                        'Explore Feed',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -346,7 +366,10 @@ class HomeScreen extends StatelessWidget {
                     child: const Center(
                       child: Text(
                         'No disaster events recorded right now.',
-                        style: TextStyle(color: Color(0xFF64748B), fontSize: 13),
+                        style: TextStyle(
+                          color: Color(0xFF64748B),
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),
@@ -371,7 +394,7 @@ class HomeScreen extends StatelessWidget {
                       color: Colors.transparent,
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => DisasterDetailScreen(disaster: disaster));
+                          Get.to(() => DetailScreen(disaster: disaster));
                         },
                         borderRadius: BorderRadius.circular(18),
                         child: Padding(
@@ -384,7 +407,11 @@ class HomeScreen extends StatelessWidget {
                                   color: alertColor.withValues(alpha: 0.12),
                                   borderRadius: BorderRadius.circular(14),
                                 ),
-                                child: Icon(disaster.iconData, color: alertColor, size: 20),
+                                child: Icon(
+                                  disaster.iconData,
+                                  color: alertColor,
+                                  size: 20,
+                                ),
                               ),
                               const SizedBox(width: 12),
                               Expanded(
@@ -446,11 +473,16 @@ class HomeScreen extends StatelessWidget {
                               ),
                               const SizedBox(width: 8),
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
                                 decoration: BoxDecoration(
                                   color: disaster.alertBgColor,
                                   borderRadius: BorderRadius.circular(12),
-                                  border: Border.all(color: alertColor.withValues(alpha: 0.3)),
+                                  border: Border.all(
+                                    color: alertColor.withValues(alpha: 0.3),
+                                  ),
                                 ),
                                 child: Text(
                                   disaster.alertLevel,
@@ -542,10 +574,7 @@ class _FeaturedCrisisCard extends StatelessWidget {
   final DisasterModel disaster;
   final VoidCallback onTap;
 
-  const _FeaturedCrisisCard({
-    required this.disaster,
-    required this.onTap,
-  });
+  const _FeaturedCrisisCard({required this.disaster, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -556,7 +585,10 @@ class _FeaturedCrisisCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: alertColor.withValues(alpha: 0.35), width: 1.5),
+        border: Border.all(
+          color: alertColor.withValues(alpha: 0.35),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: alertColor.withValues(alpha: 0.08),
@@ -579,7 +611,10 @@ class _FeaturedCrisisCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: disaster.alertBgColor,
                         borderRadius: BorderRadius.circular(20),
@@ -609,7 +644,10 @@ class _FeaturedCrisisCard extends StatelessWidget {
                     ),
                     Text(
                       disaster.formattedDate,
-                      style: const TextStyle(fontSize: 11, color: Color(0xFF94A3B8)),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: Color(0xFF94A3B8),
+                      ),
                     ),
                   ],
                 ),
@@ -655,7 +693,11 @@ class _FeaturedCrisisCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 4),
-                    Icon(Icons.arrow_forward_rounded, size: 14, color: alertColor),
+                    Icon(
+                      Icons.arrow_forward_rounded,
+                      size: 14,
+                      color: alertColor,
+                    ),
                   ],
                 ),
               ],
