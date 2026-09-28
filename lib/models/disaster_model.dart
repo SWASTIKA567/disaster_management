@@ -38,7 +38,16 @@ class DisasterModel {
   factory DisasterModel.fromJson(Map<String, dynamic> json, {List<dynamic>? coordinates}) {
     double lat = 0.0;
     double lon = 0.0;
-    if (coordinates != null && coordinates.length >= 2) {
+
+    // API returns coordinates as a SPACE-SEPARATED STRING "lon lat", not an array
+    final rawCoords = json['coordinates'] ?? json['geometry']?['coordinates'];
+    if (rawCoords is String && rawCoords.trim().isNotEmpty) {
+      final parts = rawCoords.trim().split(RegExp(r'\s+'));
+      if (parts.length >= 2) {
+        lon = double.tryParse(parts[0]) ?? 0.0;
+        lat = double.tryParse(parts[1]) ?? 0.0;
+      }
+    } else if (coordinates != null && coordinates.length >= 2) {
       lon = (coordinates[0] is num) ? (coordinates[0] as num).toDouble() : 0.0;
       lat = (coordinates[1] is num) ? (coordinates[1] as num).toDouble() : 0.0;
     }
@@ -54,16 +63,29 @@ class DisasterModel {
       score = double.tryParse(rawScore) ?? 0.0;
     }
 
+    // description from API is often just the event name — prefer htmldescription
+    final rawDesc = json['description']?.toString() ?? '';
+    final rawHtml = json['htmldescription']?.toString() ?? '';
+    final eventNameRaw = json['name']?.toString() ?? '';
+    // If description is identical to the name or very short, use htmldescription instead
+    final String bestDescription = (rawDesc.isEmpty || rawDesc == eventNameRaw || rawDesc.length < 20)
+        ? rawHtml
+        : rawDesc;
+
+    // eventname is often empty in real API — fall back to 'name'
+    final eventNameField = json['eventname']?.toString() ?? '';
+    final displayName = eventNameField.isNotEmpty ? eventNameField : eventNameRaw;
+
     return DisasterModel(
       eventId: json['eventid']?.toString() ?? '',
       eventType: (json['eventtype']?.toString() ?? 'OTHER').toUpperCase(),
-      eventName: json['eventname']?.toString() ?? '',
-      name: json['name']?.toString() ?? json['eventname']?.toString() ?? 'Incident',
+      eventName: displayName,
+      name: eventNameRaw.isNotEmpty ? eventNameRaw : displayName,
       country: json['country']?.toString().trim() ?? '',
       alertLevel: json['alertlevel']?.toString().trim() ?? 'Green',
       alertScore: score,
-      description: json['description']?.toString() ?? '',
-      htmlDescription: json['htmldescription']?.toString() ?? '',
+      description: bestDescription,
+      htmlDescription: rawHtml,
       date: json['fromdate']?.toString() ?? '',
       toDate: json['todate']?.toString() ?? '',
       severityText: severityData?['severitytext']?.toString() ?? '',

@@ -443,7 +443,7 @@ class _SafetyTipsSection extends StatelessWidget {
           {'phase': 'Before', 'icon': Icons.grass_rounded, 'color': const Color(0xFF0284C7), 'tip': 'Conserve water: fix leaks, use drip irrigation for crops.'},
           {'phase': 'During', 'icon': Icons.check_rounded, 'color': const Color(0xFF10B981), 'tip': 'Follow official water rationing guidelines strictly.'},
           {'phase': 'During', 'icon': Icons.close_rounded, 'color': const Color(0xFFEF4444), 'tip': 'Avoid burning fields or open burning — drought raises wildfire risk.'},
-          {'phase': 'During', 'icon': Icons.sunny_rounded, 'color': const Color(0xFFF59E0B), 'tip': 'Avoid outdoor activities in peak afternoon heat — risk of heat stroke.'},
+          {'phase': 'During', 'icon': Icons.wb_sunny_rounded, 'color': const Color(0xFFF59E0B), 'tip': 'Avoid outdoor activities in peak afternoon heat — risk of heat stroke.'},
           {'phase': 'After', 'icon': Icons.check_rounded, 'color': const Color(0xFF10B981), 'tip': 'Continue conserving water even when rains return — reserves take time to replenish.'},
         ];
 

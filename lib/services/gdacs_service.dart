@@ -17,9 +17,14 @@ class GdacsService {
         final List<dynamic> events = data['features'] ?? [];
 
         final list = events.map((event) {
-          final props = event['properties'] as Map<String, dynamic>? ?? {};
-          final coords = event['geometry']?['coordinates'] as List<dynamic>?;
-          return DisasterModel.fromJson(props, coordinates: coords);
+          final props = Map<String, dynamic>.from(
+              event['properties'] as Map<String, dynamic>? ?? {});
+          // Inject raw geometry coordinates string into props so the model can parse it
+          final rawCoords = event['geometry']?['coordinates'];
+          if (rawCoords != null) {
+            props['coordinates'] = rawCoords;
+          }
+          return DisasterModel.fromJson(props);
         }).toList();
 
         if (list.isNotEmpty) {
